@@ -1,0 +1,29 @@
+# vision-cast: one m3d character standing on the real table, kept alive by a
+# RealityKit System (look-at, breath, idle breaks, tap-to-wave). Generated into an
+# Xcode project by `xcodegen`; never hand-edit the .xcodeproj (2026-10-02).
+name: VisionCast
+options:
+  bundleIdPrefix: local.vision-cast
+targets:
+  VisionCast:
+    type: application
+    platform: visionOS
+    deploymentTarget: "26.0"
+    sources:
+      - Sources
+      # A folder reference: the bundle gets Characters/<name>/{idle,look,wave,hop}.usdz.
+      - path: Resources/Characters
+        type: folder
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: vision-cast
+        NSWorldSensingUsageDescription: vision-cast detects your table so the lamp can stand on it.
+        NSHandsTrackingUsageDescription: vision-cast watches your hands so the lamp can wave back.
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: true
+          UIApplicationPreferredDefaultSceneSessionRole: UIWindowSceneSessionRoleApplication
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: local.vision-cast.app
+        SWIFT_VERSION: "6.0"

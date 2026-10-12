@@ -193,6 +193,18 @@ xcrun devicectl device process launch --device "$DEVICE_ID" local.vision-cast.ap
 The app asks for world sensing (to find the table) and hand tracking (to see you wave).
 Head pose needs no permission.
 
+### Development notes
+
+- `project.yml` is the project. Add files or change settings there and re-run
+  `xcodegen generate`; never hand-edit the generated `.xcodeproj`.
+- Each USDZ under `Resources/Characters/` holds one clip. A clip never drives another
+  file's entity, so swap entities rather than share clips.
+- Check changes by rendering them: build for the simulator, launch with
+  `SIMCTL_CHILD_VC_AUTO_PLACE=1 SIMCTL_CHILD_VC_FALLBACK_Y=1.1`, then take a screenshot
+  with `xcrun simctl io booted screenshot` and look at it.
+- When a RealityKit API name does not compile, check the `RealityFoundation`
+  `.swiftinterface` in the XROS SDK rather than guessing.
+
 ### Tests
 
 ```sh
@@ -215,7 +227,6 @@ swift test      # SwiftPM sees only WaveDetector.swift and Spring.swift
 | `Sources/SpaceTracker.swift` | one `ARKitSession`: head pose, horizontal planes, hand samples (palm normal from the wrist and the index and little-finger metacarpals, mirrored for the left hand) |
 | `Resources/Characters/lamp/{idle,look,wave,hop}.usdz` | the four clips (about 10 MB each; mesh, 3 textures, one animation) |
 | `tools/` | two USD workarounds tried before the real fix (see below); kept for the record, not used |
-| `CLAUDE.md` | the working rules the coding agents followed while building this |
 
 ## The character asset
 
@@ -268,4 +279,4 @@ conversion; joint rotations do.
 - The spring is after Daniel Holden's "Spring-It-On" notes
   (theorangeduck.com, `spring_damper_exact`). The behaviour scorer follows Dave Mark's
   utility AI approach (GDC 2015).
-- Built with coding agents (Claude) working under the rules in `CLAUDE.md`.
+- Built with coding agents (Claude).
